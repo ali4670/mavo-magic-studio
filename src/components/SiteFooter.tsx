@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Reveal } from "./Reveal";
 
 function Marquee() {
-  const items = ["MAVO ATHLETICS", "GEAR UP", "MOVE FREE", "EVERY SEASON", "PEAK PERFORMANCE", "BUILT TO LAST"];
+  const items = ["MAVO STREETWEAR", "DRESS LOUD", "MOVE FREE", "EVERY SEASON", "BUILT TO WEAR", "BUILT TO LAST"];
   return (
     <div className="mx-3 mt-3 overflow-hidden rounded-[32px] bg-foreground py-8 text-background md:mx-6">
       <div className="marquee flex w-max gap-12 whitespace-nowrap font-display text-4xl tracking-[0.04em] md:text-6xl">
@@ -49,7 +49,7 @@ export function SiteFooter() {
           <div>
             <p className="font-display text-3xl tracking-[0.04em]">MAVO</p>
             <p className="mt-3 max-w-xs text-sm text-muted-foreground">
-              Premium athleisure engineered for peak performance — every season, every workout.
+              Premium streetwear for the everyday — seasonal drops, sharp silhouettes, no compromise.
             </p>
           </div>
           {cols.map((c) => (

@@ -14,9 +14,9 @@ export const Route = createFileRoute("/women")({
   head: () => ({
     meta: [
       { title: "Women — Mavo Athletics" },
-      { name: "description", content: "Mavo Women's collection. Performance fits, layered essentials, and cold-weather gear designed without compromise." },
+      { name: "description", content: "Mavo Women — relaxed silhouettes, layered essentials, and cold-weather pieces with attitude." },
       { property: "og:title", content: "Women — Mavo Athletics" },
-      { property: "og:description", content: "Performance athleisure for women." },
+      { property: "og:description", content: "Premium streetwear for women." },
     ],
   }),
 });
