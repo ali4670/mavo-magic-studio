@@ -74,7 +74,7 @@ export function ProductQuickView({ product, open, onOpenChange }: Props) {
                 <span className="text-xs text-muted-foreground">{activeColor}</span>
               </div>
               <div className="flex gap-3">
-                {colors.map((c) => {
+                {colors.map((c: { name: string; hex: string }) => {
                   const active = activeColor === c.name;
                   return (
                     <button
@@ -102,7 +102,7 @@ export function ProductQuickView({ product, open, onOpenChange }: Props) {
                 </button>
               </div>
               <div className="flex flex-wrap gap-2">
-                {sizes.map((s) => {
+                {sizes.map((s: string) => {
                   const active = activeSize === s;
                   return (
                     <button
