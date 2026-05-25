@@ -29,23 +29,30 @@ export const Route = createFileRoute("/")({
 
 function Hero() {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const [progress, setProgress] = useState(0); // 0 at top, 1 fully scrolled past hero
+  const [progress, setProgress] = useState(0); // smoothed 0..1
+  const targetRef = useRef(0);
+  const currentRef = useRef(0);
 
   useEffect(() => {
     let raf = 0;
-    const update = () => {
+    const compute = () => {
       const el = sectionRef.current;
-      if (!el) return;
+      if (!el) return 0;
       const rect = el.getBoundingClientRect();
-      const total = rect.height + window.innerHeight * 0.4;
-      const scrolled = Math.min(Math.max(-rect.top / total, 0), 1);
-      setProgress(scrolled);
+      const total = rect.height + window.innerHeight * 0.3;
+      return Math.min(Math.max(-rect.top / total, 0), 1);
+    };
+    const tick = () => {
+      // ease toward target for buttery motion
+      currentRef.current += (targetRef.current - currentRef.current) * 0.12;
+      setProgress(currentRef.current);
+      raf = requestAnimationFrame(tick);
     };
     const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(update);
+      targetRef.current = compute();
     };
-    update();
+    onScroll();
+    raf = requestAnimationFrame(tick);
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     return () => {
@@ -55,10 +62,20 @@ function Hero() {
     };
   }, []);
 
-  const textOpacity = Math.max(1 - progress * 2.2, 0);
-  const textTranslate = -progress * 60;
-  const imgTranslate = -progress * 260;
-  const imgScale = 1 + progress * 0.08;
+  // Eased curves — different rates for text vs image create depth
+  const eased = progress * progress * (3 - 2 * progress); // smoothstep
+  const textOpacity = Math.max(1 - progress * 2, 0);
+  const textBlur = progress * 14;
+  const textTranslate = -eased * 120;
+  const textScale = 1 - eased * 0.08;
+
+  const imgTranslate = -eased * 520;
+  const imgScale = 1 + eased * 0.22;
+  const imgRotate = eased * -4;
+  const imgBlur = Math.max(0, (progress - 0.7) * 12);
+
+  const haloScale = 1 + eased * 0.6;
+  const haloOpacity = Math.max(1 - progress * 1.6, 0);
 
   return (
     <section ref={sectionRef} className="relative mx-3 mt-3 overflow-hidden rounded-[32px] hero-vignette md:mx-6">
@@ -70,8 +87,8 @@ function Hero() {
             className="font-display text-[clamp(2.5rem,7vw,6.5rem)] leading-[0.95] will-change-transform"
             style={{
               opacity: textOpacity,
-              transform: `translateY(${textTranslate}px)`,
-              transition: "opacity 120ms linear",
+              transform: `translateY(${textTranslate}px) scale(${textScale})`,
+              filter: `blur(${textBlur}px)`,
             }}
           >
             GEAR UP EVERY SEASON
@@ -84,8 +101,8 @@ function Hero() {
             className="mt-8 flex items-center gap-3 will-change-transform"
             style={{
               opacity: textOpacity,
-              transform: `translateY(${textTranslate * 0.7}px)`,
-              transition: "opacity 120ms linear",
+              transform: `translateY(${textTranslate * 0.6}px) scale(${textScale})`,
+              filter: `blur(${textBlur * 0.6}px)`,
             }}
           >
             <button className="rounded-pill bg-foreground px-9 py-4 text-xs font-semibold tracking-[0.18em] text-background transition-transform hover:scale-[1.03]">
@@ -98,6 +115,18 @@ function Hero() {
         </Reveal>
         <Reveal delay={250} y={40}>
           <div className="relative mt-4 flex w-full max-w-5xl justify-center">
+            {/* Glowing halo behind model that expands as you scroll */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute left-1/2 top-1/2 -z-0 h-[70%] w-[55%] -translate-x-1/2 -translate-y-1/2 rounded-full"
+              style={{
+                background:
+                  "radial-gradient(circle, oklch(0.78 0.12 60 / 0.55), transparent 65%)",
+                transform: `translate(-50%, -50%) scale(${haloScale})`,
+                opacity: haloOpacity,
+                filter: "blur(40px)",
+              }}
+            />
             <img
               src={heroModel}
               alt="Mavo athletic wear hero model"
@@ -105,12 +134,14 @@ function Hero() {
               height={1280}
               className="relative z-10 h-[clamp(420px,60vh,720px)] w-auto object-contain will-change-transform"
               style={{
-                transform: `translateY(${imgTranslate}px) scale(${imgScale})`,
+                transform: `translateY(${imgTranslate}px) scale(${imgScale}) rotate(${imgRotate}deg)`,
+                filter: `blur(${imgBlur}px) drop-shadow(0 ${30 + eased * 40}px ${40 + eased * 60}px rgba(0,0,0,${0.25 + eased * 0.2}))`,
               }}
             />
           </div>
         </Reveal>
       </div>
+
 
       <div
         className="absolute bottom-8 left-8 z-20 hidden max-w-[260px] md:block"
