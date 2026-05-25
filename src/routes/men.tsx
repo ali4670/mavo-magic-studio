@@ -15,9 +15,9 @@ export const Route = createFileRoute("/men")({
   head: () => ({
     meta: [
       { title: "Men — Mavo Athletics" },
-      { name: "description", content: "Mavo Men's collection. Performance hoodies, joggers, tees and outerwear built for every workout." },
+      { name: "description", content: "Mavo Men's collection. Hoodies, joggers, tees and outerwear cut for everyday city living." },
       { property: "og:title", content: "Men — Mavo Athletics" },
-      { property: "og:description", content: "Performance athleisure for men." },
+      { property: "og:description", content: "Premium streetwear for men." },
     ],
   }),
 });

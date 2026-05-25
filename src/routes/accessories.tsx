@@ -39,7 +39,7 @@ function AccessoriesPage() {
       <PageHero
         eyebrow="ACCESSORIES"
         title={<>THE PIECES <span className="italic">THAT</span> FINISH IT</>}
-        description="Caps, bags, eyewear and small gear — engineered with the same standard as the rest of the kit."
+        description="Caps, bags, eyewear and finishing pieces — same standard as the rest of the fit."
       />
       <section className="mx-3 mt-3 rounded-[32px] bg-surface px-6 py-14 md:mx-6 md:px-12 md:py-20">
         <Reveal>

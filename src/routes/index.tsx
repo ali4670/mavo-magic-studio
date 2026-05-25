@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
       { title: "Mavo — Gear Up Every Season, Every Workout" },
       { name: "description", content: "Mavo is streetwear for everyday living. Discover seasonal drops, fresh fits, and pieces built for the way you move through the city." },
       { property: "og:title", content: "Mavo — Performance Athleisure" },
-      { property: "og:description", content: "Premium athleisure built for peak performance." },
+      { property: "og:description", content: "Premium streetwear for everyday living." },
     ],
   }),
 });
