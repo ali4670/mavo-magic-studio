@@ -66,7 +66,10 @@ export function SiteFooter() {
           ))}
         </div>
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-border pt-6 text-xs text-muted-foreground md:flex-row md:items-center">
-          <span>© 2026 Mavo Athletics. All rights reserved.</span>
+          <span>© 2026 Mavo Streetwear. All rights reserved.</span>
+          <span className="font-medium tracking-[0.18em] text-foreground">
+            DESIGNED BY ALI ELHWASHY
+          </span>
           <span className="flex gap-5">
             <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a>
           </span>
