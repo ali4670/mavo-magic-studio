@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
 import { Play, ArrowUpRight } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -27,20 +28,66 @@ export const Route = createFileRoute("/")({
 });
 
 function Hero() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [progress, setProgress] = useState(0); // 0 at top, 1 fully scrolled past hero
+
+  useEffect(() => {
+    let raf = 0;
+    const update = () => {
+      const el = sectionRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const total = rect.height + window.innerHeight * 0.4;
+      const scrolled = Math.min(Math.max(-rect.top / total, 0), 1);
+      setProgress(scrolled);
+    };
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  const textOpacity = Math.max(1 - progress * 2.2, 0);
+  const textTranslate = -progress * 60;
+  const imgTranslate = -progress * 260;
+  const imgScale = 1 + progress * 0.08;
+
   return (
-    <section className="relative mx-3 mt-3 overflow-hidden rounded-[32px] hero-vignette md:mx-6">
+    <section ref={sectionRef} className="relative mx-3 mt-3 overflow-hidden rounded-[32px] hero-vignette md:mx-6">
       <div className="absolute inset-0 perspective-lines" aria-hidden />
       <SiteHeader />
       <div className="relative z-10 flex flex-col items-center px-6 pt-16 text-center md:px-12 md:pt-20">
         <Reveal>
-          <h1 className="font-display text-[clamp(2.5rem,7vw,6.5rem)] leading-[0.95]">
+          <h1
+            className="font-display text-[clamp(2.5rem,7vw,6.5rem)] leading-[0.95] will-change-transform"
+            style={{
+              opacity: textOpacity,
+              transform: `translateY(${textTranslate}px)`,
+              transition: "opacity 120ms linear",
+            }}
+          >
             GEAR UP EVERY SEASON
             <br />
             EVERY <span className="italic">WORKOUT!</span>
           </h1>
         </Reveal>
         <Reveal delay={150}>
-          <div className="mt-8 flex items-center gap-3">
+          <div
+            className="mt-8 flex items-center gap-3 will-change-transform"
+            style={{
+              opacity: textOpacity,
+              transform: `translateY(${textTranslate * 0.7}px)`,
+              transition: "opacity 120ms linear",
+            }}
+          >
             <button className="rounded-pill bg-foreground px-9 py-4 text-xs font-semibold tracking-[0.18em] text-background transition-transform hover:scale-[1.03]">
               SHOP NOW
             </button>
@@ -56,13 +103,19 @@ function Hero() {
               alt="Mavo athletic wear hero model"
               width={1024}
               height={1280}
-              className="relative z-10 h-[clamp(420px,60vh,720px)] w-auto object-contain"
+              className="relative z-10 h-[clamp(420px,60vh,720px)] w-auto object-contain will-change-transform"
+              style={{
+                transform: `translateY(${imgTranslate}px) scale(${imgScale})`,
+              }}
             />
           </div>
         </Reveal>
       </div>
 
-      <div className="absolute bottom-8 left-8 z-20 hidden max-w-[260px] md:block">
+      <div
+        className="absolute bottom-8 left-8 z-20 hidden max-w-[260px] md:block"
+        style={{ opacity: textOpacity }}
+      >
         <Reveal delay={400}>
           <div className="mb-3 flex -space-x-3">
             {["bg-[oklch(0.65_0.08_30)]","bg-[oklch(0.45_0.04_40)]","bg-[oklch(0.72_0.05_60)]"].map((c, i) => (
@@ -75,7 +128,10 @@ function Hero() {
         </Reveal>
       </div>
 
-      <div className="absolute bottom-8 right-8 z-20 hidden md:block">
+      <div
+        className="absolute bottom-8 right-8 z-20 hidden md:block"
+        style={{ opacity: textOpacity }}
+      >
         <Reveal delay={500}>
           <div className="relative h-32 w-52 overflow-hidden rounded-2xl">
             <img src={videoThumb} alt="Mavo product reel" className="size-full object-cover" />
