@@ -20,7 +20,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Mavo — Gear Up Every Season, Every Workout" },
-      { name: "description", content: "Mavo is premium athleisure built for peak performance. Discover seasonal drops, fresh fits, and gear engineered for every workout." },
+      { name: "description", content: "Mavo is streetwear for everyday living. Discover seasonal drops, fresh fits, and pieces built for the way you move through the city." },
       { property: "og:title", content: "Mavo — Performance Athleisure" },
       { property: "og:description", content: "Premium athleisure built for peak performance." },
     ],
@@ -93,7 +93,7 @@ function Hero() {
           >
             GEAR UP EVERY SEASON
             <br />
-            EVERY <span className="italic">WORKOUT!</span>
+            EVERY <span className="italic">DAY!</span>
           </h1>
         </Reveal>
         <Reveal delay={150}>
@@ -129,7 +129,7 @@ function Hero() {
             />
             <img
               src={heroModel}
-              alt="Mavo athletic wear hero model"
+              alt="Mavo streetwear hero model"
               width={1024}
               height={1280}
               className="relative z-10 h-[clamp(420px,60vh,720px)] w-auto object-contain will-change-transform"
@@ -154,7 +154,7 @@ function Hero() {
             ))}
           </div>
           <p className="text-[13px] leading-snug text-muted-foreground">
-            Stay cozy without compromising your range of motion. Our seasonal range is built for chilly outdoor workouts.
+            Stay cozy without losing your edge. Our seasonal range is cut for late nights, long walks, and colder city days.
           </p>
         </Reveal>
       </div>
@@ -206,11 +206,11 @@ function TopPicks() {
           <div>
             <p className="mb-3 text-[11px] font-medium tracking-[0.22em] text-muted-foreground">OUR TOP PICKS</p>
             <h2 className="font-display text-[clamp(2rem,5vw,4rem)] leading-[1] max-w-3xl">
-              TOP WORKOUT GEAR FOR <span className="italic">PEAK</span> PERFORMANCE!
+              STAPLES BUILT FOR YOUR <span className="italic">EVERY</span> DAY!
             </h2>
           </div>
           <p className="hidden max-w-[260px] pt-2 text-sm text-muted-foreground md:block">
-            Discover the best of our collection, designed to power your workouts all year round.
+            Discover the pieces our community keeps coming back to — wearable all year, anywhere.
           </p>
         </div>
       </Reveal>
@@ -218,11 +218,11 @@ function TopPicks() {
       <div className="grid gap-6 md:grid-cols-2">
         <Reveal delay={80}>
           <EditorialCard img={cardWinter} eyebrow="01 / WINTER" year="2026"
-            title={<>TOP <br /> WORKOUT <br /> GEAR FOR <br /> PEAK <br /> PERFORMANCE!</>} />
+            title={<>EVERYDAY <br /> ESSENTIALS <br /> CUT FOR <br /> THE <br /> STREETS.</>} />
         </Reveal>
         <Reveal delay={180}>
           <EditorialCard img={cardSummer} eyebrow="02 / SUMMER" year="2026"
-            title={<>LATEST <br /> STYLES AND <br /> INNOVATIONS <br /> IN WORKOUT <br /> GEAR.</>} />
+            title={<>NEW <br /> SILHOUETTES <br /> AND <br /> SEASONAL <br /> DROPS.</>} />
         </Reveal>
       </div>
     </section>
@@ -232,8 +232,8 @@ function TopPicks() {
 function FreshFits() {
   const products = [
     { img: product1, name: "Mavo Core Hoodie Set", price: "USD 118.00", tag: "Winter" },
-    { img: product2, name: "Mavo Pro Tech Tracksuit", price: "USD 142.00", tag: "Winter" },
-    { img: product3, name: "Mavo Lite Run Kit", price: "USD 96.00", tag: "Summer" },
+    { img: product2, name: "Mavo Heavyweight Tracksuit", price: "USD 142.00", tag: "Winter" },
+    { img: product3, name: "Mavo Boxy Tee Set", price: "USD 96.00", tag: "Summer" },
     { img: product1, name: "Mavo Heritage Fleece", price: "USD 128.00", tag: "Winter" },
   ];
   return (
@@ -242,7 +242,7 @@ function FreshFits() {
         <div className="mb-10 grid items-end gap-4 md:grid-cols-3">
           <span className="text-[11px] font-medium tracking-[0.22em] text-muted-foreground">NEW ARRIVAL</span>
           <h2 className="font-display text-[clamp(2rem,4.5vw,3.5rem)] leading-[1] text-center">
-            FRESH FITS FOR YOUR <br /> <span className="italic">NEXT</span> WORKOUT!
+            FRESH FITS FOR YOUR <br /> <span className="italic">NEXT</span> MOVE!
           </h2>
           <span className="text-[11px] font-medium tracking-[0.22em] text-muted-foreground md:text-right">ALL BRANDS</span>
         </div>
