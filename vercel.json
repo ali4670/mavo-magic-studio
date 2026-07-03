@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "dist/server/server.js",
-      "use": "@vercel/node"
+      "src": "package.json",
+      "use": "@tanstack/start"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "dist/server/server.js"
+      "dest": "/"
     }
   ]
 }
